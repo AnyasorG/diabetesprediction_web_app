@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <!-- Link to the updated CSS file for styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Link to the favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with larger transparent logo and medical blue background -->
+        <div class="header">
+            <img src="{{ url_for('static', filename='img/transparent-medical-logo.png') }}" alt="Medical Logo">
+            <h1>Diabetes Prediction Model</h1>
+        </div>
+
+        <!-- Prediction Form -->
+        <form id="prediction-form" action="/predict" method="POST">
+            <!-- Age -->
+            <label for="Age">Age:</label>
+            <select id="Age" name="Age" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="less than 40">Less than 40</option>
+                <option value="40-49">40-49</option>
+                <option value="50-59">50-59</option>
+                <option value="60 or older">60 or older</option>
+            </select>
+
+            <!-- Physical Activity Level -->
+            <label for="PhysicallyActive">Physical Activity Level:</label>
+            <select id="PhysicallyActive" name="PhysicallyActive" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="none">None</option>
+                <option value="less than half an hr">Less than half an hr</option>
+                <option value="more than half an hr">More than half an hr</option>
+                <option value="one hr or more">One hr or more</option>
+            </select>
+
+            <!-- BMI -->
+            <label for="BMI">Body Mass Index (BMI):</label>
+            <input type="number" step="0.1" id="BMI" name="BMI" class="short-input" required>
+
+            <!-- Sleep -->
+            <label for="Sleep">Average Hours of Sleep per Day:</label>
+            <input type="number" step="0.1" id="Sleep" name="Sleep" class="short-input" required>
+
+            <!-- Sound Sleep -->
+            <label for="SoundSleep">Average Hours of Sound Sleep:</label>
+            <input type="number" step="0.1" id="SoundSleep" name="SoundSleep" class="short-input" required>
+
+            <!-- Junk Food Frequency -->
+            <label for="JunkFood">Junk Food Consumption Frequency:</label>
+            <select id="JunkFood" name="JunkFood" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="occasionally">Occasionally</option>
+                <option value="often">Often</option>
+                <option value="very often">Very often</option>
+                <option value="always">Always</option>
+            </select>
+
+            <!-- Stress Level -->
+            <label for="Stress">Stress Level:</label>
+            <select id="Stress" name="Stress" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="not at all">Not at all</option>
+                <option value="sometimes">Sometimes</option>
+                <option value="very often">Very often</option>
+                <option value="always">Always</option>
+            </select>
+
+            <!-- Blood Pressure Level -->
+            <label for="BPLevel">Blood Pressure Level:</label>
+            <select id="BPLevel" name="BPLevel" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="Low">Low</option>
+                <option value="Normal">Normal</option>
+                <option value="High">High</option>
+            </select>
+
+            <!-- Pregnancies -->
+            <label for="Pregnancies">Number of Pregnancies:</label>
+            <input type="number" id="Pregnancies" name="Pregnancies" class="short-input" min="0" required>
+
+            <!-- Urination Frequency -->
+            <label for="UrinationFreq">Urination Frequency:</label>
+            <select id="UrinationFreq" name="UrinationFreq" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="not much">Not much</option>
+                <option value="quite often">Quite often</option>
+            </select>
+
+            <!-- Gender -->
+            <label for="Gender">Gender:</label>
+            <select id="Gender" name="Gender" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+            </select>
+
+            <!-- Family Diabetes -->
+            <label for="FamilyDiabetes">Family History of Diabetes:</label>
+            <select id="FamilyDiabetes" name="FamilyDiabetes" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <!-- Smoking -->
+            <label for="Smoking">Smoking:</label>
+            <select id="Smoking" name="Smoking" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <!-- Alcohol Consumption -->
+            <label for="Alcohol">Alcohol Consumption:</label>
+            <select id="Alcohol" name="Alcohol" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <!-- Regular Medicine Use -->
+            <label for="RegularMedicine">Regular Medicine Use:</label>
+            <select id="RegularMedicine" name="RegularMedicine" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <!-- Gestational Diabetes -->
+            <label for="GDiabetes">History of Gestational Diabetes:</label>
+            <select id="GDiabetes" name="GDiabetes" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+
+            <!-- Submit Button -->
+            <button type="submit">Predict</button>
+        </form>
+
+        <!-- Prediction Result -->
+        <div id="prediction-result">
+            {% if prediction %}
+            <h2>Prediction Result: {{ prediction }}</h2>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Link to JavaScript file for form interactivity -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
