@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diabetes Prediction</title>
-    <!-- Link to the updated CSS file for styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- Link to the favicon -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
     <div class="container">
-        <!-- Header with larger transparent logo and medical blue background -->
         <div class="header">
             <img src="{{ url_for('static', filename='img/transparent-medical-logo.png') }}" alt="Medical Logo">
-            <h1>Diabetes Prediction Model</h1>
+            <h1>Diabetes PredictSense ©</h1>
         </div>
 
         <!-- Prediction Form -->
@@ -140,16 +137,18 @@
                 <option value="yes">Yes</option>
             </select>
 
-            <!-- Submit Button -->
-            <button type="submit">Predict</button>
+            <!-- Button Container -->
+            <div class="button-container">
+                <button type="submit" class="btn-submit">Predict</button>
+                <button type="button" id="refresh-button" class="btn-refresh" style="background-color: red;">Refresh</button>
+            </div>
         </form>
 
         <!-- Prediction Result -->
-        <div id="prediction-result">
-            {% if prediction %}
+        <div id="prediction-result" class="{% if prediction == 'Diabetic' %}diabetic{% endif %}">
             <h2>Prediction Result: {{ prediction }}</h2>
-            {% endif %}
         </div>
+        
     </div>
 
     <!-- Link to JavaScript file for form interactivity -->

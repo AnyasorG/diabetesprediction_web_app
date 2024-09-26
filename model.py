@@ -1,6 +1,5 @@
 import tensorflow as tf
 import pandas as pd
-import numpy as np
 import joblib
 
 # Load the trained model
@@ -15,7 +14,6 @@ def predict_diabetes(input_data):
         input_df = pd.DataFrame([input_data])
 
         # Specific mappings as per your preprocessing during training
-        # Mapping dictionaries
         age_mapping = {'less than 40': 0, '40-49': 1, '50-59': 2, '60 or older': 3}
         physical_activity_mapping = {
             'none': 0,
@@ -35,18 +33,9 @@ def predict_diabetes(input_data):
             'very often': 2,
             'always': 3
         }
-        bp_level_mapping = {
-            'low': 0,
-            'normal': 1,
-            'high': 2
-        }
-        urination_freq_mapping = {
-            'not much': 0,
-            'quite often': 1
-        }
+        bp_level_mapping = {'low': 0, 'normal': 1, 'high': 2}
+        urination_freq_mapping = {'not much': 0, 'quite often': 1}
         gender_mapping = {'female': 0, 'male': 1}
-        
-        # Mapping for yes/no binary features
         yes_no_mapping = {'no': 0, 'yes': 1}
 
         # Apply mappings to the input data
@@ -65,7 +54,7 @@ def predict_diabetes(input_data):
         input_df['RegularMedicineUse'] = input_df['RegularMedicine'].map(yes_no_mapping)
         input_df['GestationalDiabetes'] = input_df['GDiabetes'].map(yes_no_mapping)
 
-        # Ensure the mappings are applied
+        # Ensure the mappings are applied correctly
         if input_df.isnull().any().any():
             raise ValueError("Error in mapping categorical features. Possible unknown category in input.")
 
@@ -73,8 +62,8 @@ def predict_diabetes(input_data):
         expected_columns = [
             'Age', 'PhysicalActivityLevel', 'BMI', 'Sleep', 'SoundSleep', 'JunkFoodFrequency',
             'StressLevel', 'BloodPressureLevel', 'Pregnancies', 'UrinationFrequency',
-            'Gender', 'FamilyDiabetes', 'Smoking',
-            'AlcoholConsumption', 'RegularMedicineUse', 'GestationalDiabetes'
+            'Gender', 'FamilyDiabetes', 'Smoking', 'AlcoholConsumption', 
+            'RegularMedicineUse', 'GestationalDiabetes'
         ]
 
         # Add missing columns with default value 0
@@ -94,7 +83,7 @@ def predict_diabetes(input_data):
         # Make prediction using the trained model
         prediction = model.predict(input_scaled)
 
-        # Interpret the result
+        # Return the prediction as either Diabetic or Not Diabetic
         result = "Diabetic" if prediction[0][0] > 0.5 else "Not Diabetic"
         return result
 

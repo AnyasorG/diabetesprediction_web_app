@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('prediction-form');
+    const resultDiv = document.getElementById('prediction-result');
+
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+        event.preventDefault();
         const formData = new FormData(form);
 
         fetch('/predict', {
@@ -10,16 +12,19 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            const resultDiv = document.getElementById('prediction-result');
             if (data.prediction) {
                 resultDiv.innerHTML = `<h2>Prediction Result: ${data.prediction}</h2>`;
-            } else if (data.error) {
-                resultDiv.innerHTML = `<h2>Error: ${data.error}</h2>`;
+                
+                // Apply modern styles conditionally
+                if (data.prediction === 'Diabetic') {
+                    resultDiv.classList.add('diabetic');
+                } else {
+                    resultDiv.classList.remove('diabetic');
+                }
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            const resultDiv = document.getElementById('prediction-result');
             resultDiv.innerHTML = `<h2>An error occurred. Please try again.</h2>`;
         });
     });
